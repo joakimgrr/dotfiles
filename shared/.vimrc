@@ -23,6 +23,7 @@ Plug 'thaerkh/vim-workspace'
 Plug 'valloric/youcompleteme'
 Plug 'w0rp/ale'
 Plug 'sindresorhus/vim-xo'
+Plug 'mxw/vim-jsx'
 call plug#end()
 
 colorscheme onedark
