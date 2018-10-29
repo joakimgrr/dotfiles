@@ -1,5 +1,5 @@
-scriptencoding utf-8
-set encoding=utf-8
+scriptencoding UTF-8
+set encoding=UTF-8
 
 call plug#begin('~/.vim/plug')
 Plug 'vim-airline/vim-airline'
@@ -8,28 +8,34 @@ Plug 'chriskempson/base16-vim'
 Plug 'trevordmiller/nova-vim'
 Plug 'joshdick/onedark.vim'
 
-Plug 'fmoralesc/vim-pad'
+Plug 'fmoralesc/vim-pad', { 'branch': 'devel' }
 Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-"Plug 'tpope/vim-surround'
+Plug 'matze/vim-move'
+Plug 'tpope/vim-commentary'
 
-"Plug 'ctrlpvim/ctrlp.vim'
+Plug 'sirver/ultisnips'
+Plug 'ervandew/supertab'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'thaerkh/vim-workspace'
+Plug 'ryanoasis/vim-devicons'
+Plug 'troydm/zoomwintab.vim'
 
 Plug 'valloric/youcompleteme'
 Plug 'w0rp/ale'
 Plug 'sindresorhus/vim-xo'
 Plug 'mxw/vim-jsx'
+Plug 'posva/vim-vue'
 call plug#end()
 
 colorscheme onedark
 set background=dark
 
-set number
+set relativenumber
+set cursorline
 
 set backspace=indent,eol,start
 
@@ -39,6 +45,9 @@ set nowritebackup
 set noswapfile
 set noundofile
 
+set splitright
+set splitbelow
+
 set laststatus=2
 
 "Show hidden characters
@@ -47,7 +56,15 @@ set listchars=tab:\»»,space:·,trail:·,eol:¬,nbsp:·,extends:>,precedes:<
 
 set hlsearch
 
+"let g:javascript_plugin_jsdoc = 1
+
 let g:pad#dir='~/.notes'
+let g:pad#set_mappings=0
+let g:pad#window_height=10
+
+nmap <leader>n <Plug>(pad-new)
+nmap <leader>e <Plug>(pad-list)
+nmap <leader>s <Plug>(pad-search)
 
 let g:airline_theme='base16_eighties'
 let g:airline_powerline_fonts = 1
@@ -69,8 +86,22 @@ let g:ale_sign_warning = '-'
 let g:ale_echo_msg_format='[%linter%] %s [%severity%]'
 
 let g:ale_linters = {
-  \   'javascript': ['xo']
+  \   'javascript': ['eslint']
   \ }
+
+let g:move_key_modifier = 'C'
+
+
+" YouCompleteMe and UltiSnips compatibility, with the helper of supertab
+" (via http://stackoverflow.com/a/22253548/1626737)
+let g:SuperTabDefaultCompletionType    = '<C-n>'
+let g:SuperTabCrMapping                = 0
+let g:UltiSnipsExpandTrigger           = '<tab>'
+let g:UltiSnipsJumpForwardTrigger      = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
+let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 
 "Custom leader key mappings
 "
@@ -79,16 +110,7 @@ nnoremap <Leader><Leader> <C-^>
 nnoremap <Leader>w :write<CR>
 nnoremap <leader>s :ToggleWorkspace<CR>
 
-
-" Move lines / selections up or down
-nnoremap <leader>k :m .+1<CR>==
-nnoremap <leader>j :m .-2<CR>==
-
-" Resize splits
-noremap <leader>< :vertical resize -5<CR>
-noremap <leader>> :vertical resize +5<CR>
-noremap <leader>+ :res +5<CR>
-noremap <leader>- :res -5<CR>
+nnoremap <leader>+ :ZoomWinTabToggle<CR>
 
 " Go to buffer number
 noremap <leader>1 :b 1<CR>
@@ -124,3 +146,9 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+
+function! CenterPane()
+   lefta vnew
+   wincmd w
+   exec 'vertical resize '. string(&columns * 0.75)
+ endfunction
