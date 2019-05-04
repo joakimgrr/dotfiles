@@ -11,4 +11,4 @@ Running "./bootsrap.sh [environment]" will create backups from existing dotfiles
 
 1. Copy keyboard layout in ubuntu to /usr/share/X11/xkb/symbols
 2. Copy terminator config in ubuntu
-3. Setup font / fonts
+3. Setup font / fonts (copy to ~/.local/share/fonts in ubuntu)
