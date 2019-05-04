@@ -4,15 +4,18 @@ set encoding=UTF-8
 call plug#begin('~/.vim/plug')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'chriskempson/base16-vim'
+"Plug 'chriskempson/base16-vim'
 Plug 'trevordmiller/nova-vim'
-Plug 'joshdick/onedark.vim'
+"Plug 'joshdick/onedark.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 Plug 'fmoralesc/vim-pad', { 'branch': 'devel' }
 Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'matze/vim-move'
+" Disable vim move for now since it messes up the
+" split navigation keybindings
+"Plug 'matze/vim-move'
 Plug 'tpope/vim-commentary'
 
 Plug 'sirver/ultisnips'
@@ -31,11 +34,13 @@ Plug 'mxw/vim-jsx'
 Plug 'posva/vim-vue'
 call plug#end()
 
-colorscheme onedark
-set background=dark
+"colorscheme onedark
+colorscheme dracula
+"set background=dark
 
 set relativenumber
 set cursorline
+set termguicolors
 
 set backspace=indent,eol,start
 
@@ -66,12 +71,12 @@ nmap <leader>n <Plug>(pad-new)
 nmap <leader>e <Plug>(pad-list)
 nmap <leader>s <Plug>(pad-search)
 
-let g:airline_theme='base16_eighties'
+let g:airline_theme='dracula'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
-let g:onedark_termcolors=256
+"let g:onedark_termcolors=256
 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
@@ -135,10 +140,12 @@ map <C-n> :NERDTreeToggle<CR>
 "map <esc> :noh<cr>
 
 " Map split navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" change <c-w>h to <c-w><C-h> for linux support
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
+"nnoremap <c-Left><C-w>h
 
 
 "Tab configurations, 2 spaces.
