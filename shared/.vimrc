@@ -15,7 +15,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " Disable vim move for now since it messes up the
 " split navigation keybindings
-"Plug 'matze/vim-move'
+""Plug 'matze/vim-move'
 Plug 'tpope/vim-commentary'
 
 Plug 'sirver/ultisnips'
@@ -26,6 +26,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'troydm/zoomwintab.vim'
+Plug 'majutsushi/tagbar'
 
 Plug 'valloric/youcompleteme'
 Plug 'w0rp/ale'
@@ -35,12 +36,14 @@ Plug 'posva/vim-vue'
 call plug#end()
 
 "colorscheme onedark
+let g:dracula_colorterm=0
+let g:dracula_italic=0
 colorscheme dracula
 "set background=dark
 
 set relativenumber
 set cursorline
-set termguicolors
+" set termguicolors
 
 set backspace=indent,eol,start
 
@@ -54,6 +57,8 @@ set splitright
 set splitbelow
 
 set laststatus=2
+" Hide tabline
+" set showtabline=0
 
 "Show hidden characters
 set list
@@ -62,14 +67,6 @@ set listchars=tab:\»»,space:·,trail:·,eol:¬,nbsp:·,extends:>,precedes:<
 set hlsearch
 
 "let g:javascript_plugin_jsdoc = 1
-
-let g:pad#dir='~/.notes'
-let g:pad#set_mappings=0
-let g:pad#window_height=10
-
-nmap <leader>n <Plug>(pad-new)
-nmap <leader>e <Plug>(pad-list)
-nmap <leader>s <Plug>(pad-search)
 
 let g:airline_theme='dracula'
 let g:airline_powerline_fonts = 1
@@ -94,8 +91,8 @@ let g:ale_linters = {
   \   'javascript': ['eslint']
   \ }
 
+" For vim-move"
 let g:move_key_modifier = 'C'
-
 
 " YouCompleteMe and UltiSnips compatibility, with the helper of supertab
 " (via http://stackoverflow.com/a/22253548/1626737)
@@ -117,24 +114,11 @@ nnoremap <leader>s :ToggleWorkspace<CR>
 
 nnoremap <leader>+ :ZoomWinTabToggle<CR>
 
-" Go to buffer number
-noremap <leader>1 :b 1<CR>
-noremap <leader>2 :b 2<CR>
-noremap <leader>3 :b 3<CR>
-noremap <leader>4 :b 4<CR>
-noremap <leader>5 :b 5<CR>
-noremap <leader>6 :b 6<CR>
-noremap <leader>7 :b 7<CR>
-noremap <leader>8 :b 8<CR>
-noremap <leader>9 :b 9<CR>
-
 "FZF
 nnoremap <silent> <leader>f :GFiles<CR>
-nnoremap <silent> <leader>b :Buffers<CR>
 
 " Nerd tree, Ctrl + n open
 map <C-n> :NERDTreeToggle<CR>
-"map <F2> :NERDTreeToggle<CR>
 
 " Clear search result highlights (NOTE: causes vim to start in replace mode)
 "map <esc> :noh<cr>
@@ -153,9 +137,3 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
-
-function! CenterPane()
-   lefta vnew
-   wincmd w
-   exec 'vertical resize '. string(&columns * 0.75)
- endfunction
